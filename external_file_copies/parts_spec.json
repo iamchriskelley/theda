@@ -1,0 +1,129 @@
+/* 
+X 	add footprint formats to json spec
+X 	add solder mask formats to json spec
+add thermal vias to json spec
+
+
+Landing Pattern Descriptor / Generator:
+pad geometry:
+  -shape and size
+	circle [diam]
+	rectangle [width, height]
+	pill (buffered line) [distance to left, distance to right, buffer width]
+	custom [[c0],[...],[cn],[c0]]
+	(bbox [[ul],[br]])
+
+  -centroid (auto-calculated for bbox)
+	
+  -angle (does not affect circle)
+  
+  -(through-)hole, placed at pad centroid:
+	hole_size [diam]
+	hole_offset [x,y]
+  
+solder mask options:
+  -solder_inset (subtractive) [inset distance]
+  -solder_size (additive) [dimensions in same parameter format as parent shape]
+  -solder_bounds (multi-part) [[bbox1],[...],[bboxn]]
+
+  [...]
+
+pins_iterative
+	"start": [x,y],
+	"ops":["x1.27 r90"]
+
+pins_matrix
+	"names": ["pin1","...","pin4","pin8","...","pin5"],
+	"geometry":[2,4],
+	"ul_corner":[x,y],
+	"steps": [x_step, y_step]
+*/
+{
+	"part_count":1,
+	"parts":[	
+	{
+		"id":"part_00000007",
+		"name":"DS3231MZ",
+		"type":"RTC",
+		"value":"",
+		"package":"SOIC8",
+		"pin_count":8,
+		"pin_ids":["pin1", "pin2", "pin3", "pin4", "pin5", "pin6", "pin7", "pin8"],
+		"pin_names":["32KHZ", "VCC", "INT/SQW", "RST", "GND", "VBAT", "SDA", "SCL"],
+		"pin_classes":["FREQ", "VCC", "DIG", "RESET", "GND", "VBAT", "I2C", "I2C"],
+		"has_regmap":"true",
+		"register_map":{
+			"register_length":31,
+			"byte_length":8,
+			"byte_count":1,
+			"register_names":["0x00"],
+			"dataList":[
+				{"0x00":["SEC","SEC","SEC","SEC","MIN","MIN","MIN","MIN"]}
+			]
+		},
+		"attributes":[
+			{"passive":"false"},
+			{"manufacturer":"Maxim"},
+			{"protocol":"i2c"}
+		],
+		"footprint":{
+			"shapes":{//.....describe the pin shapes
+				"A":{
+					"shape":"pill",
+					"size":[3,2,1],
+					"hole":1.0,
+					"hole_offset":[0.2,0.0]
+				},
+				"B":{
+					"shape":"rectangle",
+					"size":[1.98,0.53],
+					"solder_inset":[0.05]
+				},
+				"C":{
+					"shape":"circle",
+					"size":[2.0]
+				}
+			},
+			"placements":{
+				"1":{
+					"name":"pin1",
+					"shape":"A",
+					"angle":0.0,
+					"loc":[-2.465,1.905]
+				},
+				"2":{
+					"name":"pin2",
+					"shape":"B",
+					"angle":10, //calculated as CCW rotation in degrees from positive x-axis (i.e. 3 on the clock)
+					"location":[-2.465,0.635]
+				},
+				"3":{
+					"method":"iterative",
+					"names":["pin3","pin4","pin5"],
+					"shape":"B",
+					"angle":0,
+					"first":[-2.465,-0.635],
+					"ops":["y-1.27*1","x4.93,r180"] //explain
+				},
+				"4":{
+					"method":"placed",
+					"names":["pin6","pin7","pin8"],
+					"shape":"C",
+					"placements":[[2.465,-0.635],[2.465,0.635],[2.465,1.905,180]] //if a third argument is provided it is used to rotate shape; rotations carry forward to remaining placements in array
+				},
+				/*
+				"5":{
+					"method":"matrix",
+					"path_order":"cr", //columns, then rows; "rc" gives rows then columns 
+					"travel_mode":"w" //wind, i.e. top-to-bottom-to-top ... (or thusly with L-R-L); "t" gives top to bottom (or L2R), "b" gives bottom to top (or R2L), "m" gives inverted wind (e.g. R2L2R).
+					"names":["pin1","...","pin8"],
+					"shape":"B",
+					"angle":0,
+					"start":[-2.465,1.905],
+					"steps":[4.93,1.27]	//these are X and Y steps, regardless of path_order of travel_mode chosen
+				}
+				*/
+			}
+		}
+	}
+}

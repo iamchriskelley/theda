@@ -1,0 +1,203 @@
+{
+	"part_count":10,
+	"parts":[
+	{
+		"id":"part_00000001",
+		"name":"ATTINY85",
+		"type":"MICROPROCESSOR",
+		"value":"",
+		"package":"SOIC8",
+		"pin_count":8,
+		"pin_ids":["pin1", "pin2", "pin3", "pin4", "pin5", "pin6", "pin7", "pin8"],
+		"pin_names":["PB5", "PB3", "PB4", "GND", "PB0", "PB1", "PB2", "VCC"],
+		"pin_classes":["GPIO", "GPIO", "GPIO", "GND", "GPIO", "GPIO", "GPIO", "VCC"],
+		"has_regmap":"false",
+		"attributes":[
+			{"k":"passive","v":"false"},
+			{"k":"manufacturer","v":"Atmel"},
+			{"k":"data bus width","v":"8-BIT"},
+			{"k":"has_passives","v":"true"},
+			{"k":"microcontroller","v":"true"},
+			{"k":"decoupling_capacitor","v":"100nF"}
+		]		
+	},
+	{
+		"id":"part_00000002",
+		"name":"C0603",
+		"type":"capacitor",
+		"value":"100n",
+		"package":"C0603",
+		"pin_count":2,
+		"pin_ids":["pin1", "pin2"],
+		"pin_names":["PIN1", "PIN2"],
+		"pin_classes":["PASS", "PASS"],
+		"attributes":[{"k":"passive","v":"true"}]
+	},
+	{
+		"id":"part_00000003",
+		"name":"R0603",
+		"type":"resistor",
+		"value":"10k",
+		"package":"R0603",
+		"pin_count":2,
+		"pin_ids":["pin1", "pin2"],
+		"pin_names":["PIN1", "PIN2"],
+		"pin_classes":["PASS", "PASS"],
+		"attributes":[{"k":"passive","v":"true"}]
+	},
+	{
+		"id":"part_00000004",
+		"name":"BAT43-WS-7-F",
+		"type":"diode",
+		"value":"",
+		"package":"SOD323",
+		"pin_count":2,
+		"pin_ids":["pin1", "pin2"],
+		"pin_names":["PIN1", "PIN2"],
+		"pin_classes":["PASS", "PASS"],
+		"attributes":[{"k":"passive","v":"true"}]
+	},
+	{
+		"id":"part_00000005",
+		"name":"24LC256",
+		"type":"EEPROM",
+		"value":"",
+		"package":"SOIC8",
+		"pin_count":8,
+		"pin_ids":["pin1", "pin2", "pin3", "pin4", "pin5", "pin6", "pin7", "pin8"],
+		"pin_names":["A0", "A1", "A2", "GND", "SDA", "SCL", "WP", "VCC"],
+		"pin_classes":["ADDR", "ADDR", "ADDR", "GND", "I2C", "I2C", "EN", "VCC"],
+		"has_regmap":"true",
+		"register_map":{
+			"register_length":0,
+			"byte_length":0,
+			"byte_count":0,
+			"register_names":[],
+			"dataList":[]
+		},
+		"attributes":[
+			{"k":"passive","v":"false"},
+			{"k":"manufacturer","v":"Atmel"},
+			{"k":"data bus width","v":"8-BIT"},
+			{"k":"has_passives","v":"true"},
+			{"k":"microcontroller","v":"true"},
+			{"k":"decoupling_capacitor","v":"100nF"}
+		]
+	},
+	{
+		"id":"part_00000006",
+		"name":"MCP79412",
+		"type":"RTC",
+		"value":"",
+		"package":"SOIC8",
+		"pin_count":8,
+		"pin_ids":["pin1", "pin2", "pin3", "pin4", "pin5", "pin6", "pin7", "pin8"],
+		"pin_names":["X1", "X2", "VBAT", "GND", "SDA", "SCL", "MFP", "VCC"],
+		"pin_classes":["XTAL", "XTAL", "VBAT", "GND", "I2C", "I2C", "DIG", "VCC"],
+		"has_regmap":"true",
+		"register_map":{
+			"register_length":31,
+			"byte_length":8,
+			"byte_count":6,
+			"register_names":["0x00","0x01","0x02","0x03","0x04","0x20\n0x5F"],
+			"dataList":[
+				{"bits":["SEC","SEC","SEC","SEC","MIN","MIN","MIN","MIN"]},
+				{"bits":["HR","HR","HR","DOTW","DOTW","DOTW","FOO","BAR"]},
+				{"bits":["HR","HR","HR","DOTW","DOTW","DOTW","FOO","BAR"]},
+				{"bits":["HR","HR","HR","DOTW","DOTW","DOTW","FOO","BAR"]},
+				{"bits":["OUT","SQWE","ALM1","ALM0","EXTOSC","RS2","RS1","RS0"]},
+				{"bits":["SRAM","SRAM","SRAM","SRAM","SRAM","SRAM","SRAM","SRAM"]}
+			]
+		},
+		"attributes":[
+			{"k":"passive","v":"false"},
+			{"k":"manufacturer","v":"Microchip"},
+			{"k":"protocol","v":"i2c"},
+			{"k":"vcc_range","v":"(1.8,5.5)"},
+			{"k":"temp_range","v":"(-40,85)"},
+			{"k":"logic_low_fraction","v":"0.3"},
+			{"k":"logic_high_fraction","v":"0.7"},
+			{"k":"operating_current_max","v":"3mA"},
+			{"k":"operating_current_min","v":"300uA"}
+		]
+	},
+	{
+		"id":"part_00000007",
+		"name":"DS3231MZ",
+		"type":"RTC",
+		"value":"",
+		"package":"SOIC8",
+		"pin_count":8,
+		"pin_ids":["pin1", "pin2", "pin3", "pin4", "pin5", "pin6", "pin7", "pin8"],
+		"pin_names":["32KHZ", "VCC", "INT/SQW", "RST", "GND", "VBAT", "SDA", "SCL"],
+		"pin_classes":["FREQ", "VCC", "DIG", "RESET", "GND", "VBAT", "I2C", "I2C"],
+		"has_regmap":"true",
+		"register_map":{
+			"register_length":31,
+			"byte_length":8,
+			"byte_count":1,
+			"register_names":["0x00"],
+			"dataList":[
+				{"bits":["SEC","SEC","SEC","SEC","MIN","MIN","MIN","MIN"]}
+			]
+		},
+		"attributes":[
+			{"k":"passive","v":"false"},
+			{"k":"manufacturer","v":"Maxim"},
+			{"k":"protocol","v":"i2c"}
+		]
+	},
+	{
+		"id":"part_00000008",
+		"name":"32kHz_Crystal",
+		"type":"crystal",
+		"value":"32.l68kHz",
+		"package":"CRYSTAL-SMD-3.2X1.5MM",
+		"pin_count":4,
+		"pin_ids":["pin1", "pin2"],
+		"pin_names":["PIN1", "PIN2"],
+		"pin_classes":["XTAL", "XTAL"],
+		"attributes":[
+			{"k":"passive","v":"true"}, 
+			{"k":"mfr_id","v":"ABS07-32.768KHZ-7-T"}, 
+			{"k":"frequency","v":"32.l68kHz"}
+		]
+	},
+	{
+		"id":"part_00000009",
+		"name":"16MHz_Crystal",
+		"type":"crystal",
+		"value":"16MHz",
+		"package":"CRYSTAL-SMD-5X3.2X1.1MM",
+		"pin_count":4,
+		"pin_ids":["pin1", "pin2", "pin3", "pin4"],
+		"pin_names":["PIN1", "PIN2", "PIN3", "PIN4"],
+		"pin_classes":["XTAL", "GND", "XTAL", "GND"],
+		"attributes":[
+			{"k":"passive","v":"true"}, 
+			{"k":"mfr_id","v":"ABM3B-16.000MHZ-B2-T"}, 
+			{"k":"frequency","v":"16MHz"}
+		]
+	},
+	{
+		"id":"part_00000010",
+		"name":"ATMEGA328-AU",
+		"type":"MICROPROCESSOR",
+		"value":"",
+		"package":"TQFP32_7x7",
+		"pin_count":32,
+		"pin_ids":["pin1", "pin2", "pin3", "pin4", "pin5", "pin6", "pin7", "pin8","pin9", "pin10", "pin11", "pin12", "pin13", "pin14", "pin15", "pin16","pin17", "pin18", "pin19", "pin20", "pin21", "pin22", "pin23", "pin24","pin25", "pin26", "pin27", "pin28", "pin29", "pin30", "pin31", "pin32"],
+		"pin_names":["PD3", "PD4", "GND", "VCC", "GND", "VCC", "XTAL1", "XTAL2", "PD5", "PD6", "PD7", "PB0", "PB1", "PB2", "PB3", "PB4", "PB5", "AVCC", "ADC6", "AREF", "GND", "ADC7", "PC0", "PC1", "PC2", "PC3", "PC4", "PC5", "RST", "PD0", "PD1", "PD2"],
+		"pin_classes":["GPIO", "GPIO", "GND", "VCC", "GND", "VCC", "XTAL", "XTAL", "GPIO", "GPIO", "GPIO", "GPIO", "GPIO", "SPI", "SPI", "SPI", "SPI", "AVCC", "PASS", "AREF", "GND", "PASS", "ANA", "ANA", "ANA", "ANA", "SDA", "SCL", "RESET", "RX", "TX", "GPIO"],
+		"has_regmap":"false",
+		"attributes":[
+			{"k":"passive","v":"false"},
+			{"k":"manufacturer","v":"Atmel"},
+			{"k":"data bus width","v":"8-BIT"},
+			{"k":"has_passives","v":"true"},
+			{"k":"microcontroller","v":"true"},
+			{"k":"decoupling_capacitor","v":"100nF"}
+		]		
+	}
+	]
+}

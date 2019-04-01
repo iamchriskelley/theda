@@ -1,0 +1,29 @@
+{
+	"recipe_count":2,
+	"recipes":[
+		{
+			"id":"recipe_00000001",
+			"name":"my first board recipe",
+			"ingredients":[
+				{"id":"submod_00000001", "type":"submodule", "ref_des":"MEM_BRK1", "name":"24LC256_basic_breakout", "position":[0,10], "rotation":0, "options":["floating_labels"]},
+				{"id":"part_00000006", "type":"part", "ref_des":"RTC1", "name":"MCP79412", "position":[-12,10], "rotation":0, "options":["printed_labels"]}
+			],
+			"connections":[
+				{"name":"GND", "connects":["MEM_BRK1:EEPROM1:pin4", "RTC1:pin4"]},
+				{"name":"VCC", "connects":["MEM_BRK1:EEPROM1:pin8", "RTC1:pin8"]}
+			],
+			"signals":[],
+			"context":[]
+		},
+		{
+			"id":"recipe_00000002",
+			"name":"atmega328 breakout SMD",
+			"ingredients":[
+				{"id":"submod_00000002", "type":"submodule", "ref_des":"ATMEGA328BRK", "name":"atmega328_basic_breakout", "position":[0,0], "rotation":0, "options":["floating_labels"]}
+			],
+			"connections":[],
+			"signals":[],
+			"context":[]
+		}
+	]
+}
