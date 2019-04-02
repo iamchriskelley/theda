@@ -1,0 +1,127 @@
+/* 
+X 	add footprint formats to json spec
+X 	add solder mask formats to json spec
+add thermal vias to json spec
+
+
+Landing Pattern Descriptor / Generator:
+pad geometry:
+  -shape and size
+	circle [diam]
+	rectangle [width, height]
+	pill (buffered line) [distance to left, distance to right, buffer width]
+	custom [[c0],[...],[cn],[c0]]
+	(bbox [[ul],[br]])
+
+  -centroid (auto-calculated for bbox)
+	
+  -angle (does not affect circle)
+  
+  -(through-)hole, placed at pad centroid:
+	hole_size [diam]
+	hole_offset [x,y]
+  
+solder mask options:
+  -solder_inset (subtractive) [inset distance]
+  -solder_size (additive) [dimensions in same parameter format as parent shape]
+  -solder_bounds (multi-part) [[bbox1],[...],[bboxn]]
+
+  [...]
+
+pins_iterative
+	"start": [x,y],
+	"ops":["x1.27 r90"]
+
+pins_matrix
+	"names": ["pin1","...","pin4","pin8","...","pin5"],
+	"geometry":[2,4],
+	"ul_corner":[x,y],
+	"steps": [x_step, y_step]
+*/
+{
+	"part_count":1,
+	"parts":[	
+	{
+		"id":"part_00000007",
+		"name":"DS3231MZ",
+		"type":"RTC",
+		"value":"",
+		"package":"SOIC8",
+		"pin_count":8,
+		"pin_ids":["pin1", "pin2", "pin3", "pin4", "pin5", "pin6", "pin7", "pin8"],
+		"pin_names":["32KHZ", "VCC", "INT/SQW", "RST", "GND", "VBAT", "SDA", "SCL"],
+		"pin_classes":["FREQ", "VCC", "DIG", "RESET", "GND", "VBAT", "I2C", "I2C"],
+		"has_regmap":"true",
+		"register_map":{
+			"register_length":31,
+			"byte_length":8,
+			"byte_count":1,
+			"register_names":["0x00"],
+			"dataList":[
+				{"0x00":["SEC","SEC","SEC","SEC","MIN","MIN","MIN","MIN"]}
+			]
+		},
+		"attributes":[
+			{"passive":"false"},
+			{"manufacturer":"Maxim"},
+			{"protocol":"i2c"}
+		],
+		"footprint":{
+			"shapes":{//.....describe the pin shapes
+				"A":{
+					"shape":"pill",
+					"size":[3,2,1],	//read as: a line that runs 3mm to the left of shape location, and 2mm to the right of location, and which is buffered out 1mm.
+					"hole":[1.0],
+					"hole_offset":[0.2,0.0]
+				},
+				"B":{
+					"shape":"rectangle",
+					"size":[1.98,0.53],
+					"solder_inset":[0.05]
+				},
+				"C":{
+					"shape":"circle",
+					"size":[2.0],
+					"keepout_offset":[0.1]
+				}
+			},
+			"placements":{
+				"1":{
+					"name":"pin1",	
+					"shape":"B",	//'shp' shorthand
+					"angle":10, //calculated as CCW rotation in degrees from positive x-axis (i.e. 3 on the clock)
+					"location":[-2.465,0.635] //'loc' shorthand
+				},
+				"2":{
+					"method":"iterative",
+					"names":["pin2","...","pin5"],	//an ellipsis can be used with a common name pattern of sequential pins
+					"shape":"B",
+					"angle":0,
+					"first":[-2.465,-0.635],
+					"ops":["(y-1.27)*2","x4.93,r180"] //each move command is one entry in the 'ops' array; x,y,r commands are followed by numerical arguments (r is for rotation); repeated commands can be abbreviated by enclosing the command in parentheses and giving a multiplier n as '*n' as shown here. This ops array thus tells the landing pattern parser to move 1.27mm down when adding pads for pin3 and pin4, and then move to the right 4.93mm and rotate shape 'B' 180 degrees before adding the pad for pin5. Rotation and translation arguments thus carry forward to subsequent operations in the ops array.
+				},
+				"3":{
+					"method":"placed",
+					"names":["pin6","pin7","pin8"],
+					"shape":"C",
+					"placements":[[2.465,-0.635],[2.465,0.635],[2.465,1.905,180]] //if a third argument is provided it is used to rotate shape; each rotation argument is made with respect to the orientation of the original shape; rotation arguments do not carry forward to subsequent placements in array
+				},
+				/*
+				"5":{
+					"method":"matrix",
+					"size":[2,4],	//[columns, rows]
+					"path": 1, 	//4-digit binary number: [0-columns, 1-rows][0-top, 1-bottom][0-left, 1-right][0-straight, 1-wind]. 
+								//So '1' is column-wise travel, top to bottom, left to right, winding (so down the leftmost column and up the next most left column, etc.)
+								//This describes a typical dual-inline landing pattern in one pass.
+					"names":["pin1","...","pin8"], //for path=0 (no winding), names list would be ["pin1","...","pin4","pin5","...","pin8"]
+					"shape":"B",
+					"angle":0,
+					"rotate_on_wind":true, //optional argument, set true to flip pad shape by 180 degrees on each wind
+					"start":[-2.465,1.905],	//given the path, this must be the UL corner of the pin matrix
+					"steps":[4.93,1.27]	//these are X and Y steps, regardless of path_order of travel_mode chosen
+				}
+				*/
+			}
+		}
+	}]
+}

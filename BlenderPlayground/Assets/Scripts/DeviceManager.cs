@@ -102,7 +102,7 @@ public class DeviceManager : MonoBehaviour {
         var json = jo.ToString();
         //Debug.Log(json);
 
-        string filePath = Path.Combine(Application.streamingAssetsPath, "parts.json");  // Path.Combine combines strings into a file path at Assets/StreamingAssets
+        string filePath = Path.Combine(Application.streamingAssetsPath, "parts_spec.json");  // Path.Combine combines strings into a file path at Assets/StreamingAssets
         if (File.Exists(filePath))
         {
             string dataAsJson = File.ReadAllText(filePath); // Read the json from the file into a string
