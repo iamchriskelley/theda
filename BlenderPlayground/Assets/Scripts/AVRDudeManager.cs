@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using System.IO.Ports;
+//using System.IO.Ports;
 
 public class AVRDudeManager : MonoBehaviour
 {
@@ -25,7 +25,7 @@ public class AVRDudeManager : MonoBehaviour
 
     public string get_serial_port()
     {
-        string[] ports = SerialPort.GetPortNames();
+        string[] ports = { };// SerialPort.GetPortNames();
         foreach (string port in ports)
         {
             if(port != "COM0")
